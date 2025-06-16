@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Blame Kot ... then blame Hyde ... then blame Kot again -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -14,15 +15,13 @@
       background-color: #121212;
       color: #f0e6d2;
     }
-    a {
-      color: #0c9bd8;
-      text-decoration: none; /* removes underline */
-    }
+    a,
     a:visited,
     a:hover,
     a:active,
     a:focus {
       color: #0c9bd8;
+      text-decoration: none; /* removes underline */
     }
 
     /* Header */
@@ -49,41 +48,82 @@
 
     /* Hero section */
     .hero {
-      background-image:
-        linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
-        url('Oathbreakers.png');
-      background-size: auto 256px;
-      background-position: center;
-      background-repeat: no-repeat;
+      position: relative;
       min-height: 256px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
       text-align: center;
       padding-bottom: 2em;
+      overflow: hidden;
     }
     .hero::after {
       content: "";
       display: block;
       height: 2em;
     }
-    .hero-text {
-      transform: translateY(6em);
+    .hero-bg-layer { /* Shared style for all background layers */
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
     }
-    .spacer {
+    .hero-bg-banner { /* BOTTOM: banner.jpg with blend */
+      background: url('banner.jpg');
+      background-position: center 50%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      mix-blend-mode: normal;  /* adjust as needed */
+      filter: contrast(1.1) saturate(0.6);
+      opacity: 1;
+      z-index: 0;
+    }
+
+    .hero-bg-oathbreakers { /* MIDDLE: Oathbreakers.png, sized */
+      background: url('Oathbreakers.png') center/auto 256px no-repeat;
+      z-index: 1;
+    }
+    .hero-bg-gradient { /* TOP: Gradient overlay */
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.75) 0%,
+        rgba(0, 0, 0, 0) 25%,
+        rgba(0, 0, 0, 0) 50%,
+        rgba(0, 0, 0, 0.3) 60%,
+        rgba(0, 0, 0, 1) 100%
+      );
+      z-index: 2;
+    }
+    .hero-text {
+      position: relative;
+      z-index: 3;
+      transform: translateY(6em);
+      color: white;
+      font-size: 1rem; /* fixed base for em calculations */
+      white-space: nowrap;
+            max-width: 100%;
+      width: fit-content;
+      margin: 0 auto;
+      display: block;
+    }
+    .hero-text h1 {
+      font-size: 350%;
+    }
+    .hero-text .hero-slogan {
+      font-size: clamp(0.5rem, 3.5vw, 1.25rem); /* Lower bound, scaling range, upper bound */
+      white-space: nowrap;
+      overflow: hidden;
+      display: block;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    .hero-spacer {
       flex-shrink: 0;
       height: 1.5em;
     }
-
-    /* Navigation */
-    nav {
-      text-align: center;
-      padding: 1rem;
-    }
-    nav a {
-      margin: 0 1rem;
-      font-size: 1.2rem;
-      color: #f0e6d2;
+    .hero-bullet {
+      color: #0c9bd8;
+      font-size: 1.5em;
+      padding: 0.5em;
     }
 
     /* Main content container */
@@ -106,7 +146,7 @@
     }
 
     /* Buttons */
-    .btn {
+    .discord-button {
       display: block;
       width: fit-content;
       margin: 1rem auto 0;
@@ -117,9 +157,26 @@
       border-radius: 5px;
       text-decoration: none;
       text-align: center;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+      background: radial-gradient(circle, #634221 0%, #b2874f 100%);
+      box-shadow: 0 0 8px 2px rgba(0,0,0,0.8);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+    .discord-button:hover,
+    .discord-button:focus {
+      background: radial-gradient(circle, #8c5b2a 0%, #d1a75d 100%);
+      box-shadow: 0 0 10px 3px #0c9bd8;
+      cursor: pointer;
+}
+
+/* For mobile touch feedback, simulate hover on active/focus */
+    @media (hover: none) {
+      .discord-button:active {
+        background: radial-gradient(circle, #8c5b2a 0%, #d1a75d 100%);
+        box-shadow: 0 0 10px 3px #0c9bd8;
+      }
     }
 
-    /* Footer */
     footer {
       text-align: center;
       padding: 2rem;
@@ -128,8 +185,18 @@
       color: #aaa;
     }
 
-    /* Text colors */
-    #schedule strong,
+/* Footer and Text colors */
+    .footer-note {
+      font-size: 90%;
+      margin-bottom: 2em;
+    }
+    .footer-copyright {
+      font-size: 115%;
+    }
+    .footer-tagline {
+      font-size: 90%;
+    }
+    #main-schedule strong,
     .brown-text {
       color: #b2874f;
     }
@@ -138,28 +205,32 @@
     }
   </style>
 </head>
+
 <body>
   <header class="hero">
+    <div class="hero-bg-layer hero-bg-banner"></div> <!-- banner.jpg -->
+    <div class="hero-bg-layer hero-bg-oathbreakers"></div> <!-- oathbreakers.png -->
+    <div class="hero-bg-layer hero-bg-gradient"></div> <!-- gradient overlay -->
     <div class="hero-text">
       <h1>Oathbreakers</h1>
-      <p>Heroic Raids • Mythic+ Keys • Bad Jokes</p>
-      <div class="spacer"></div>
+      <p class="hero-slogan">Heroic Raids <span class="hero-bullet">•</span> Mythic+ Keys <span class="hero-bullet">•</span> Bad Jokes</p>
+      <div class="hero-spacer"></div> <!-- adds blank space for formatting -->
     </div>
   </header>
 
   <div id="main">
-    <section id="about">
+    <section id="main-about">
       <h2>About Us</h2>
-      <p><a href="https://worldofwarcraft.blizzard.com/en-us/guild/us/aerie-peak/oathbreakers/" target="_guildinfo">&lt;Oathbreakers&gt;</a> is a cross-realm &amp; cross-faction guild that focuses on <i>Heroic Raiding and Mythic+ keys</i>. But we also run Delves, old (xmog!) content, and whatever else Blizzard dreams up.</p>
+      <p><a href="https://worldofwarcraft.blizzard.com/en-us/guild/us/aerie-peak/oathbreakers/" target="_guildinfo">&lt;Oathbreakers&gt;</a> is a cross-realm &amp; cross-faction World of Warcraft guild that focuses on <i>Heroic Raiding and Mythic+ keys</i>. But we also run Delves, old (xmog!) content, and whatever else Blizzard dreams up.</p>
 
-      <p>We are a group of veteran players from all around the US. We have people in timezones from US Eastern to US Pacific, and welcome anyone else if event times are good for you.</p>
+      <p>We are a group of veteran players from all around the US. Most members are in US timezones from Eastern to Pacific. Any region is welcome if our event times are good for you.</p>
 
       <p>All of us are adults with various obligations but also a love of WoW that’s persisted through the expansions. We're chill in attitude with healthy aversion to drama and dogma. Our humor’s dry, the teasing’s friendly, and the vibe’s respectful. We like players who <i>play well with others</i>, not just play well.</p>
 
       <p>Old-school WoW Dads, younger players, and everyone between who just want to kill bosses, run keys, and make bad jokes.</p>
     </section>
 
-    <section id="schedule">
+    <section id="main-schedule">
       <h2>Schedule</h2>
       <ul>
         <li><strong>Raid Nights:</strong> Tuesdays & Thursdays @ 10pm EST | 7pm Pacific</li>
@@ -168,16 +239,25 @@
       </ul>
     </section>
 
-    <section id="join">
+    <section id="main-join">
       <h2>Join Us</h2>
       <p>We’re recruiting all roles for Mythic+ and Raiding. Chill vibes required. Toxic elitism not welcome. If you like teamwork and loot - we like you!</p>
-      <a class="btn" href="https://discord.gg/EzaP5zvX" target="_blank">Join Our Discord</a>
+      <a class="discord-button" href="https://discord.gg/aXBFQ8E7GB" target="_blank">Join Our Discord</a>
     </section>
   </div>
 
   <footer>
-    &copy; 2025 Oathbreakers Guild <br />
-    <span class="brown-text">Where </span>'<span class="highlight-text">Burn in Hell</span>'<span class="brown-text"> is a token of affection!</span>
+    <div class="footer-note">
+      <p><i><b>&lt;Oathbreakers&gt;</b> is located on the 'US-Aerie Peak' server in the US Pacific region.</i></p>
+      <p><i>We don't care what server you are on, <b>but your latency/ping might care where our server is.</b></i></p>
+    </div>
+    <div class="footer-copyright">&copy; 2025 Oathbreakers WoW Guild</div>
+    <span class="footer-tagline"><span class="brown-text">Where </span>'<span class="highlight-text">Burn in Hell</span>'<span class="brown-text"> is a token of affection!</span></span>
   </footer>
+
+
+
+<!-- <iframe src="https://discord.com/widget?id=1341640245912932514&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe> -->
+
 </body>
 </html>
