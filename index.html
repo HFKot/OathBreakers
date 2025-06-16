@@ -4,38 +4,93 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Oathbreakers - WoW Guild</title>
-  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Crimson+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Crimson+Pro:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
+    /* Reset and base */
     body {
       margin: 0;
       font-family: 'Crimson Pro', serif;
+      font-size: 1.3em;
       background-color: #121212;
       color: #f0e6d2;
-      background-image: url('https://www.transparenttextures.com/patterns/dark-mosaic.png');
     }
+    a {
+      color: #0c9bd8;
+      text-decoration: none; /* removes underline */
+    }
+    a:visited,
+    a:hover,
+    a:active,
+    a:focus {
+      color: #0c9bd8;
+    }
+
+    /* Header */
     header {
       text-align: center;
       padding: 2rem;
       background: #1a1a1a;
-      border-bottom: 3px solid #a52a2a;
+      border-bottom: 3px solid #b2874f;
+      position: relative;
+      color: #fff;
     }
     header img {
-      max-width: 150px;
+      max-width: 256px;
     }
     header h1 {
-      font-size: 3rem;
       margin: 0.5rem 0 0;
       font-family: 'MedievalSharp', cursive;
+      font-size: 3em;
+      text-shadow:
+        0 0 5px #0c9bd8,
+        0 0 10px #0c9bd8,
+        0 0 15px #0c9bd8;
     }
+
+    /* Hero section */
+    .hero {
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+        url('Oathbreakers.png');
+      background-size: auto 256px;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 256px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      text-align: center;
+      padding-bottom: 2em;
+    }
+    .hero::after {
+      content: "";
+      display: block;
+      height: 2em;
+    }
+    .hero-text {
+      transform: translateY(6em);
+    }
+    .spacer {
+      flex-shrink: 0;
+      height: 1.5em;
+    }
+
+    /* Navigation */
     nav {
       text-align: center;
       padding: 1rem;
     }
     nav a {
       margin: 0 1rem;
-      color: #f0e6d2;
-      text-decoration: none;
       font-size: 1.2rem;
+      color: #f0e6d2;
+    }
+
+    /* Main content container */
+    #main {
+      border-top: 3px solid #b2874f;
+      border-bottom: 3px solid #b2874f;
+      background-image: url('https://www.transparenttextures.com/patterns/black-paper.png');
     }
     section {
       max-width: 800px;
@@ -43,62 +98,86 @@
       padding: 0 1rem;
     }
     h2 {
-      border-bottom: 2px solid #a52a2a;
-      padding-bottom: 0.5rem;
       font-family: 'MedievalSharp', cursive;
+      font-size: 2em;
+      color: white;
+      border-bottom: 2px solid #0c9bd8;
+      padding-bottom: 0.5rem;
     }
+
+    /* Buttons */
     .btn {
-      display: inline-block;
-      background: #a52a2a;
-      color: #fff;
+      display: block;
+      width: fit-content;
+      margin: 1rem auto 0;
       padding: 0.75rem 1.5rem;
+      font-size: 1.2rem;
+      background: #634221;
+      color: #fff !important;
       border-radius: 5px;
       text-decoration: none;
-      font-size: 1.2rem;
-      margin-top: 1rem;
+      text-align: center;
     }
+
+    /* Footer */
     footer {
       text-align: center;
       padding: 2rem;
       background: #1a1a1a;
-      margin-top: 3rem;
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: #aaa;
+    }
+
+    /* Text colors */
+    #schedule strong,
+    .brown-text {
+      color: #b2874f;
+    }
+    .highlight-text {
+      color: #ff4500; /* bright red-orange */
     }
   </style>
 </head>
 <body>
-  <header>
-    <img src="Oathbreakers.png" alt="Oathbreakers Logo" />
-    <h1>Oathbreakers</h1>
-    <p>Heroic Raids • Mythic+ Keys • Bad Jokes</p>
+  <header class="hero">
+    <div class="hero-text">
+      <h1>Oathbreakers</h1>
+      <p>Heroic Raids • Mythic+ Keys • Bad Jokes</p>
+      <div class="spacer"></div>
+    </div>
   </header>
 
+  <div id="main">
+    <section id="about">
+      <h2>About Us</h2>
+      <p><a href="https://worldofwarcraft.blizzard.com/en-us/guild/us/aerie-peak/oathbreakers/" target="_guildinfo">&lt;Oathbreakers&gt;</a> is a cross-realm &amp; cross-faction guild that focuses on <i>Heroic Raiding and Mythic+ keys</i>. But we also run Delves, old (xmog!) content, and whatever else Blizzard dreams up.</p>
 
+      <p>We are a group of veteran players from all around the US. We have people in timezones from US Eastern to US Pacific, and welcome anyone else if event times are good for you.</p>
 
-  <section id="about">
-    <h2>About Us</h2>
-    <p>We are a group of veteran players from all around the US. we have people from many different timezones from US Eastern to US Pacific, dads, and old-school WoW heads who just want to kill bosses, run keys, and make bad jokes. We're clearing Heroic raids and pushing Mythic+ every week. We play to win but never forget to laugh.</p>
-  </section>
+      <p>All of us are adults with various obligations but also a love of WoW that’s persisted through the expansions. We're chill in attitude with healthy aversion to drama and dogma. Our humor’s dry, the teasing’s friendly, and the vibe’s respectful. We like players who <i>play well with others</i>, not just play well.</p>
 
-  <section id="schedule">
-    <h2>Schedule</h2>
-    <ul>
-      <li><strong>Raid Nights:</strong> Tuesdays & Thursdays @ 10pm EST | 7pm Pacific</li>
-      <li><strong>M+ Madness:</strong> We run whenever we can, all keys welcome</li>
-      <li><strong>Discord Mayhem:</strong> 24/7 dad jokes & strats</li>
-    </ul>
-  </section>
+      <p>Old-school WoW Dads, younger players, and everyone between who just want to kill bosses, run keys, and make bad jokes.</p>
+    </section>
 
-  <section id="join">
-    <h2>Join Us</h2>
-    <p>We’re recruiting all roles for Mythic+ and raiding. Chill vibes required. Toxic elitism not welcome. If you like teamwork and loot — we want and need you.</p>
-    <a class="btn" href="https://discord.gg/EzaP5zvX" target="_blank">Join Our Discord</a>
-  </section>
+    <section id="schedule">
+      <h2>Schedule</h2>
+      <ul>
+        <li><strong>Raid Nights:</strong> Tuesdays & Thursdays @ 10pm EST | 7pm Pacific</li>
+        <li><strong>M+ Madness:</strong> We run whenever we can, all keys welcome</li>
+        <li><strong>Discord Mayhem:</strong> 24/7 dad jokes, pet memes & raid strats</li>
+      </ul>
+    </section>
+
+    <section id="join">
+      <h2>Join Us</h2>
+      <p>We’re recruiting all roles for Mythic+ and Raiding. Chill vibes required. Toxic elitism not welcome. If you like teamwork and loot - we like you!</p>
+      <a class="btn" href="https://discord.gg/EzaP5zvX" target="_blank">Join Our Discord</a>
+    </section>
+  </div>
 
   <footer>
-    &copy; 2025 Oathbreakers Guild <br>
-    Where 'Burn in Hell' is affectionate
+    &copy; 2025 Oathbreakers Guild <br />
+    <span class="brown-text">Where </span>'<span class="highlight-text">Burn in Hell</span>'<span class="brown-text"> is a token of affection!</span>
   </footer>
 </body>
 </html>
